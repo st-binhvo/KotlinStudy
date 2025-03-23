@@ -1,5 +1,6 @@
 package com.example.kotlinknowledge.presentation.authentication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinknowledge.app.constant.AppKey
@@ -12,6 +13,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import com.github.michaelbull.result.fold
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -24,7 +27,23 @@ class LoginViewModel @Inject constructor(
 
     private inline fun emitState(value : (LoginUiState)-> LoginUiState) = _uiStateFlow.update(value)
 
+    init{
+        uiStateFlow.onEach {
+            when(it){
+                is LoginUiState.Failure -> Log.e(AppKey.appTag,"LoginUiState.Failure")
+                is LoginUiState.Initial -> Log.e(AppKey.appTag,"LoginUiState.Initial")
+                is LoginUiState.Loading -> Log.e(AppKey.appTag,"LoginUiState.Loading")
+                is LoginUiState.Succeeded -> Log.e(AppKey.appTag,"LoginUiState.Succeeded")
+            }
+        }.launchIn(viewModelScope)
+    }
+
     fun login() {
+        // make uiState loading
+        emitState {
+            LoginUiState.Loading
+        }
+
         viewModelScope.launch {
             repository.login(LoginRequest("emilys","emilyspass"))
                 .fold(
