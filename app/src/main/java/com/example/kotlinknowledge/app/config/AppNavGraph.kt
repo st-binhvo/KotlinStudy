@@ -23,7 +23,13 @@ fun AppNavGraph() {
             startDestination = ScreenRoute.Login.route,
         ){
             composable(route = ScreenRoute.Login.route) {
-                LoginScreen()
+                LoginScreen{
+                    navController.navigate(ScreenRoute.BottomNavigationRoute.route){
+                        popUpTo(ScreenRoute.Login.route){
+                            inclusive = true
+                        }
+                    }
+                }
             }
             composable(route = ScreenRoute.BottomNavigationRoute.route,) {
                 BottomNavigationView(
