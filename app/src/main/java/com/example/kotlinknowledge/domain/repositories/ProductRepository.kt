@@ -6,6 +6,7 @@ import com.example.kotlinknowledge.data.remote.responses.LoginResponse
 import com.example.kotlinknowledge.domain.model.AppError
 import com.example.kotlinknowledge.domain.model.CategoriesModel
 import com.example.kotlinknowledge.domain.model.DetailProductModel
+import com.example.kotlinknowledge.domain.model.FavoriteProduct
 import com.example.kotlinknowledge.domain.model.ProductsModel
 import com.github.michaelbull.result.Result
 
@@ -16,6 +17,10 @@ interface ProductRepository {
     suspend fun getCategories(): CategoriesModel
 
     suspend fun getDetailProduct(productId: String): Result<DetailProductModel, AppError>
+
+    suspend fun addToFavorite(product: FavoriteProduct): Boolean
+
+    suspend fun removeFavorite(product: FavoriteProduct): Boolean
 
     // https://dummyjson.com/image/SIZE/BACKGROUND/COLOR
     fun getDynamicImage(

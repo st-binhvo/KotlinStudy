@@ -26,8 +26,8 @@ fun LoadingBox(
         if (isLoading) {
             Surface(
                 modifier = Modifier
-                    .matchParentSize(),
-                color = Color.Black.copy(alpha = 0.5f)
+                    .fillMaxSize(),
+                color = Color.White.copy(alpha = 0.5f)
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),

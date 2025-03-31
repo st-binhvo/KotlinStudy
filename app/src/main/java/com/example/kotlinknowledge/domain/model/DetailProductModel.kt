@@ -17,6 +17,7 @@ data class DetailProductModel(
     val reviews: List<Review>,
     val images: List<String>,
     val thumbnail: String,
+    val isLiked: Boolean? = false,
 ){
     class Review(
         val rating: Long,
