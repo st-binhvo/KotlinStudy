@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            repository.login(LoginRequest("emilys", "emilyspass"))
+            repository.login(LoginRequest(username, password))
                 .fold(
                     success = {
                         val result = it
