@@ -1,5 +1,6 @@
 package com.example.kotlinknowledge.data.repositories
 
+import com.example.kotlinknowledge.MainApplication
 import com.example.kotlinknowledge.domain.model.CategoriesModel
 import com.example.kotlinknowledge.domain.model.ProductsModel
 import com.example.kotlinknowledge.data.remote.api.ProductServices
@@ -10,6 +11,7 @@ import com.example.kotlinknowledge.data.remote.responses.DetailProductResponse
 import com.example.kotlinknowledge.data.remote.responses.LoginResponse
 import com.example.kotlinknowledge.domain.model.AppError
 import com.example.kotlinknowledge.domain.model.DetailProductModel
+import com.example.kotlinknowledge.domain.model.FavoriteProduct
 import com.example.kotlinknowledge.domain.model.toModel
 import com.example.kotlinknowledge.domain.repositories.ProductRepository
 import com.github.michaelbull.result.Result
@@ -38,6 +40,26 @@ internal class ProductRepositoryImpl @Inject constructor(
                 services.getDetailProduct(productId).toModel()
             }
         }
+
+    override suspend fun addToFavorite(product: FavoriteProduct) = withContext(Dispatchers.IO){
+        try {
+            MainApplication.db.favoriteProductDao().insertAll(product)
+            return@withContext true
+        }
+        catch (e: Exception){
+            return@withContext false
+        }
+    }
+
+    override suspend fun removeFavorite(product: FavoriteProduct) = withContext(Dispatchers.IO){
+        try {
+            MainApplication.db.favoriteProductDao().delete(product)
+            return@withContext true
+        }
+        catch (e: Exception){
+            return@withContext false
+        }
+    }
 
     // https://dummyjson.com/image/SIZE/BACKGROUND/COLOR
     override fun getDynamicImage(

@@ -51,6 +51,8 @@ class LoginViewModel @Inject constructor(
                         val result = it
                         //save token Authorization to Local
                         saveToken(result.accessToken)
+                        //save userId Authorization to Local
+                        saveUserId(result.id.toString())
                         emitState {
                             LoginUiState.Succeeded(
                                 loginSessionData = result
@@ -69,5 +71,9 @@ class LoginViewModel @Inject constructor(
 
     private fun saveToken(token: String) {
         SharedPrefs.put(AppKey.token, token)
+    }
+
+    private fun saveUserId(userId: String) {
+        SharedPrefs.put(AppKey.USER_ID, userId)
     }
 }
