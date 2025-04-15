@@ -5,6 +5,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,6 +62,7 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.play.services.basement)
     implementation(libs.cronet.api)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -109,6 +111,11 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    // firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
 }
 
 // Allow references to generated code

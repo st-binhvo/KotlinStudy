@@ -4,4 +4,5 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_activity_bottom_navigation_view">BottomNavigationView</string>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="default_web_client_id">602347616250-8nvtcr8psk43asg4ec4edgdgnpi9cpcv.apps.googleusercontent.com</string>
 </resources>

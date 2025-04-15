@@ -1,6 +1,7 @@
 package com.example.kotlinknowledge.presentation.authentication
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -37,17 +38,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.credentials.CredentialManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.kotlinknowledge.app.theme.AppStyle
 import com.example.kotlinknowledge.presentation.authentication.viewmodel.LoginUiState
 import com.example.kotlinknowledge.presentation.authentication.viewmodel.LoginViewModel
+import com.example.kotlinknowledge.presentation.authentication.viewmodel.SignInGoogleViewModel
 import com.example.kotlinknowledge.presentation.widgets.AppButton
 import com.example.kotlinknowledge.presentation.widgets.LoadingBox
 import kotlinx.coroutines.launch
@@ -55,7 +59,10 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier,onLoginSuccess: () -> Unit) {
+    val context = LocalContext.current
     val loginViewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+    val signInGoogleViewModel: SignInGoogleViewModel = hiltViewModel<SignInGoogleViewModel>()
+    val credentialManager: CredentialManager = CredentialManager.create(context)
 
     val localFocusManager = LocalFocusManager.current
     var userName by remember { mutableStateOf("") }
